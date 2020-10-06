@@ -11,7 +11,6 @@ from .models import *
 # ====================================================
 
 
-
 # ====================================================
 def index(request):
     request.session.clear()
@@ -190,9 +189,7 @@ def get_book_review(request, book_id):
     this_reviews = book.reviews.all().order_by("-updated_at")
     context = {
         "book": Book.objects.get(id = book_id),
-        # "this_book_reviews": book.reviews().order_by("-updated_at"),
         "this_book_reviews": this_reviews,
-        "image": "static/filled_star.jpg",
         "total": len(this_reviews),
 
         # star images for ratings
@@ -224,7 +221,6 @@ def getUser(request, user_id):
         "user_results": User.objects.get(id = user_id),
         "review_results": User.objects.get(id = user_id).user_reviews.all(),
         "count": User.objects.get(id = user_id).user_reviews.all().count()
-
     }
 
     return render(request, 'belt_app/users.html', context)
@@ -247,18 +243,20 @@ def additionalReview(request, book_id):
         # if there are errors: go back to signin.html and display errors
         if len(errors):
             book = Book.objects.get(id = book_id)
-            this_book_reviews = book.reviews().order_by("-updated_at")
+            this_reviews = book.reviews.all().order_by("-updated_at")
             context = {
-                "book": book,
-                "this_book_reviews": this_book_reviews,
-                "errors" : errors
+                "book": Book.objects.get(id = book_id),
+                "this_book_reviews": this_reviews,
+                "total": len(this_reviews),
+                "errors": errors,
+
+                # star images for ratings
+                "filled": "../../static/filled_star.jpg",
+                "empty": "../../static/white_star.jpg"
             }
-            image = "static/filled_star.jpg"
-   
-            return render(request, 'belt_app/bookreview.html', context, image=image, total=len(this_book_reviews))
+            return render(request, 'belt_app/bookreview.html', context)
 
         else:
-
             this_book = Book.objects.get(id = book_id)
 
             # save user to var

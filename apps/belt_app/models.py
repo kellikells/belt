@@ -12,9 +12,9 @@ class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData['name']) < 2 : 
-            errors['name'] = "Enter a name"
+            errors['Enter a name'] = "Enter a name"
         if len(postData['alias']) < 2:
-            errors['alias'] = "Enter an alias"
+            errors['Enter an alias'] = "Enter an alias"
         if not (postData['name']).isalpha() or not (postData['alias']).isalpha():
             errors['Name only include letters'] = "Name only include letters"
         
@@ -32,9 +32,9 @@ class ReviewManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData['content']) < 1:
-            errors['content'] = "review content cannot be empty"
+            errors['content cannot be empty'] = "review content cannot be empty"
         if len(postData['rating']) > 1:
-            errors['rating'] = "select a rating for your review"
+            errors['select a rating'] = "select a rating for your review"
         
         return errors
 

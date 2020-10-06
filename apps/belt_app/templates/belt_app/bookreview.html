@@ -116,7 +116,6 @@
                             <img src="{{filled}}"><img src="{{filled}}"><img src="{{filled}}"><img src="{{filled}}"><img
                                 src="{{filled}}">
                             {% endif %}
-
                         </div>
 
                         <div class="row">
@@ -133,7 +132,6 @@
                                     <button type="submit" class="btn btn-warning" role="button"
                                         style="margin-left: 70px;">DELETE REVIEW</button>
                                 </form>
-
                             </div>"
 
                             {% endif %}
@@ -150,12 +148,6 @@
                 <div class="row">
                     <h4>Add a Review:</h4>
                 </div>
-
-                {% if errors %}
-                <div>
-                    <p>{{errors}}</p>
-                </div>
-                {% endif %}
 
                 <!-- ADD REVIEW ROUTE  -->
                 <form action="/additionalReview/{{ book.id }}/" method="post">
@@ -186,33 +178,13 @@
                     </div>
                 </form>
 
-                <!-- flash message  -->
-                <!-- ------------------------------ -->
-                <div class="container" style="min-height:100%; width:80%">
-
-                    {% if messages %}
-                    {% for message in messages %}
-
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Review Added!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{message}}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-
-                    {% block body %}{% endblock %}
-                </div>
-
 
                 <!-- flash errors  -->
                 <!-- ------------------------------ -->
                 <div>
 
-                    {% if messages %}
-                    {% for message in messages %}
+                    {% if errors %}
+                    {% for message in errors %}
                     <p style="color: red;">{{message}}</p>
                     {% endfor %}
                     {% endif %}
