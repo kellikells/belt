@@ -75,7 +75,7 @@
                                 <p>Rating: {{ review.rating }}</p>
 
                                 <!-- user alias as a link  -->
-                                <a href="/getUser/{{ review.user_id }}/">{{ review.alias }}</a>
+                                <a href="/getUser/{{ review.user_id.id }}/">{{ review.user_id.alias }}</a>
 
                                 <!-- review content -->
                                 {{ review.content }}

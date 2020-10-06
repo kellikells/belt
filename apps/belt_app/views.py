@@ -212,31 +212,13 @@ def booksPage(request):
 # ------------------------------------------------------------------------
 def getUser(request, user_id):
 
-    # this_user = User.objects.get(id = user_id)
-
-
-#     a = User.objects.get(id = 1).user_reviews.all()
-#     context = {
-#         "reviews": a
-#     }
-
-
-    # this_reviews = Review.objects.get(user_id = this_user).book_id.all()
-    # # a.book_id.title
-
-
-    # total_reviews = this_user.user_reviews.all().count()
-    
     context = {
         "user_results": User.objects.get(id = user_id),
         "review_results": User.objects.get(id = user_id).user_reviews.all(),
         "count": User.objects.get(id = user_id).user_reviews.all().count()
 
     }
-    # context = {
-    #     "user_results": User.objects.get(id=user_id),
-    #     "review_results": Review.objects.get(user_id = user_id)
-    # }
+
     return render(request, 'belt_app/users.html', context)
 
 # ------------------------------------------------------------------------

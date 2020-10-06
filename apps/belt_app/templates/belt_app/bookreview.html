@@ -136,8 +136,12 @@
                             <!-- --------------- delete --------------------  -->
                             {% if review.user_id.id == request.session.user_id %}
                             <div class="col">
-                                <a href="/delete_review/{{ review.book_id.id }}/{{ review.id }}/"
-                                    class="btn btn-warning" role="button" style="margin-left: 70px;">DELETE REVIEW</a>
+                                <form action="/delete_review/{{ review.book_id.id }}/{{ review.id }}/" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-warning" role="button"
+                                        style="margin-left: 70px;">DELETE REVIEW</button>
+                                </form>
+
                             </div>"
 
                             {% endif %}
@@ -226,7 +230,7 @@
             </div>
         </div>
     </div>
-  
+
 
     <!-- BOOTSTRAP'S: Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

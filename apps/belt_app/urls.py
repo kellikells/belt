@@ -4,7 +4,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='belt_app_index'),
 
- 
     url(r'^register/$', views.register , name='belt_app_register'),
 
     url(r'^register_success/$', views.register_success , name='belt_app_register_success'),
