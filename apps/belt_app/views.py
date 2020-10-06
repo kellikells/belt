@@ -193,7 +193,11 @@ def get_book_review(request, book_id):
         # "this_book_reviews": book.reviews().order_by("-updated_at"),
         "this_book_reviews": this_reviews,
         "image": "static/filled_star.jpg",
-        "total": len(this_reviews)
+        "total": len(this_reviews),
+
+        # star images for ratings
+        "filled": "../../static/filled_star.jpg",
+        "empty": "../../static/white_star.jpg"
     }
     return render(request, 'belt_app/bookreview.html', context)
 
@@ -205,7 +209,11 @@ def booksPage(request):
         "results": Review.objects.all().order_by("-updated_at")[:3],
 
         # getting all the books in database 
-        "book_results": Book.objects.all().order_by("title")
+        "book_results": Book.objects.all().order_by("title"),
+
+        # star images for ratings
+        "filled": "../../static/filled_star.jpg",
+        "empty": "../../static/white_star.jpg"
     }
     return render(request, 'belt_app/books.html', context)
 

@@ -25,7 +25,7 @@
     <nav id="navbar" class="navbar navbar-dark" style="background-color:black;">
         <span class="navbar-text justify-content-left" style="color: white;">
             <i class="fas fa-portrait"></i>
-            {{ request.session.user_alias }}
+            <a href="/getUser/{{request.session.user_id}}/">{{ request.session.user_alias }}</a>
         </span>
 
         <ul class="nav justify-content-end">
@@ -72,7 +72,33 @@
                             <div class="card-body">
 
                                 <!-- rating -->
-                                <p>Rating: {{ review.rating }}</p>
+                                <p>Rating: {{ review.rating }}
+
+                                    {% if review.rating == 1 %}
+                                    <img src="{{filled}}"><img src="{{empty}}"><img src="{{empty}}"><img
+                                        src="{{empty}}"><img src="{{empty}}">
+                                    {% endif %}
+
+                                    {% if review.rating == 2 %}
+                                    <img src="{{filled}}"><img src="{{filled}}"><img src="{{empty}}"><img
+                                        src="{{empty}}"><img src="{{empty}}">
+                                    {% endif %}
+
+                                    {% if review.rating == 3 %}
+                                    <img src="{{filled}}"><img src="{{filled}}"><img src="{{filled}}"><img
+                                        src="{{empty}}"><img src="{{empty}}">
+                                    {% endif %}
+
+                                    {% if review.rating == 4 %}
+                                    <img src="{{filled}}"><img src="{{filled}}"><img src="{{filled}}"><img
+                                        src="{{filled}}"><img src="{{empty}}">
+                                    {% endif %}
+
+                                    {% if review.rating == 5 %}
+                                    <img src="{{filled}}"><img src="{{filled}}"><img src="{{filled}}"><img
+                                        src="{{filled}}"><img src="{{filled}}">
+                                    {% endif %}
+                                </p>
 
                                 <!-- user alias as a link  -->
                                 <a href="/getUser/{{ review.user_id.id }}/">{{ review.user_id.alias }}</a>
