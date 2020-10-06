@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login and Registration</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- static css -->
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
+    <!-- google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Link to jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body style="background-color: #ced;">
+
+    <!-- ================= NAV ======================== -->
+    <nav id="navbar" class="navbar navbar-dark" style="background-color:black;">
+        <span class="navbar-text justify-content-left" style="color: white;">
+            <i class="fas fa-portrait"></i>
+            {{ request.session.user_alias }}
+        </span>
+
+        <ul class="nav justify-content-end">
+
+            <!-- ============= HOME ROUTE =============== -->
+            <li class="nav-item">
+                <a class="nav-link" href="/booksPage/" style="color: white;">Home <i class="fas fa-home"></i></a>
+            </li>
+
+            <!-- ============== LOGOUT ROUTE ================ -->
+            <li class="nav-item">
+                <a class="nav-link" href="/logout/" style="color: white;">Log out <i class="fas fa-door-open"></i></a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!-- ======================================================================= -->
+    <div style="height: 30px; background-color:white; margin-bottom: 30px;">
+
+    </div>
+    <div class="container">
+
+        <!-- ======== ALERT FOR REVIEW SUCCESS ======== -->
+
+        <div class="container" style="min-height:100%; width:80%">
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <h4 class="alert-heading">SUCCESS!</h4>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                {{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="row justify-content-center" style="margin-bottom: 25px;">
+            <h2 style="font-weight:bold;">
+                Add A Book & Your Review
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!-- form for adding a new book or review  -->
+                <!-- ------------------------------------------------------------- -->
+                <form action="/addReview/{{request.session.user_id}}/" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group row">
+                        <div style="color:red;">
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <label style="font-weight: bold; font-size: 1.5rem;" for="title"
+                            class="col-sm-3 col-form-label">Book Title:</label>
+                     
+                        <!-- title  -->
+                        <div class="col-sm-9">
+                            <input name="title" type="text" class="form-control" id="title">
+                        </div>
+                    </div>
+
+                    <label style="font-weight: bold; font-size: 1.5rem;">
+                        Author:
+                    </label>
+
+                    <!-- create new author  -->
+                    <div style="margin-left: 10px;" class="form-group row">
+                        <label style="font-size: 1.25rem;" for="new-author" class="col-sm-3 col-form-label ">Add a new
+                            author:</label>
+                        <div class="col-sm-9">
+
+                            <input name="new-author" type="text" class="form-control" id="new-author">
+                            
+                        </div>
+                    </div>
+
+                    <!-- old-author: drop down of existing authors in database -->
+                    <div style="margin-left: 10px;" class="form-group row">
+                        <label style="font-size: 1.25rem;" for="old-author" class="col-sm-3 col-form-label">Existing
+                            Author:</label>
+
+                        <div class="col-sm-2">
+                            <select name="old-author" class="custom-select" id="old-author">
+
+                                <!-- LOOP THROUGH AUTHORS TABLE -->
+                                <!-- ============================================== -->
+                                <option selected>Choose</option>
+
+                                {% for author in author_results %}
+
+                                <option value="{{ author.id }}">{{ author.name }} </option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Review  -->
+                    <div class="form-group row">
+                        <label style="font-weight: bold; font-size: 1.5rem;" for="content"
+                            class="col-sm-3 col-form-label">Review:</label>
+
+
+                        <div class="col-sm-9">
+                            <textarea name="content" class="form-control" id="content" rows=" 3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- rating  -->
+                    <div class="form-group row">
+                        <label style="font-weight: bold; font-size: 1.5rem;" for="rating"
+                            class="col-sm-3 col-form-label">Rating:</label>
+
+
+                        <div class="col-sm-2">
+                            <select name="rating" class="custom-select" id="rating">
+                                <option selected>Choose</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- submit button  -->
+                    <div class="form-group row justify-content-end">
+                        <button type="submit" class="btn btn-primary">Add Review</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- BOOTSTRAP'S: Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

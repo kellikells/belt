@@ -1,0 +1,64 @@
+Review.objects.get(id=1).book_id.title
+'Cat In the hat'
+
+
+>>> a= Review.objects.get(user_id = this_user).book_id.all()
+
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\kelli\Projects\PRACTICE\python_stack\myEnvironments\djangoPy3Env\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\kelli\Projects\PRACTICE\python_stack\myEnvironments\djangoPy3Env\lib\site-packages\django\db\models\query.py", line 389, in get
+    (self.model._meta.object_name, num)
+apps.belt_app.models.MultipleObjectsReturned: get() returned more than one Review -- it returned 5!
+
+>>> a = Review.objects.filter(user_id = this_user).book_id.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'QuerySet' object has no attribute 'book_id'
+
+
+ a= Review.objects.get(user_id = this_user).book_id.all()
+ >>> a.first()
+<Review: content = A classic book for kids, rating = 3>
+>>> b = a.first()
+>>> b.title
+>>> b.book_id.title
+'Cat In the hat'
+
+
+--------------------
+ a= Review.objects.get(user_id = this_user).book_id.all()
+a.book_id.title
+
+>>> a = Review.objects.filter(user_id=this_user)
+>>> b = a.book_id.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'QuerySet' object has no attribute 'book_id'
+-----------------------
+
+
+
+
+
+    book = Book.objects.get(id = book_id)
+
+    this_reviews = book.reviews.all().order_by("-updated_at")
+
+ {% if review.user_id.id == request.session.user_id %}
+                          
+
+
+
+----------------->>> a = User.objects.get(id =1).user_reviews.all().values()
+>>> a
+<QuerySet [{'id': 1, 'book_id_id': 2, 'user_id_id': 1, 'content': 'A classic book for kids', 'rating': 3, 'created_at': datetime.datetime(2020, 10, 5, 18, 17, 1, 185456, tzinfo=<UTC>), 'updated_at': datetime.datetime(2020, 10, 5, 18, 17, 1, 185456, tzinfo=<UTC>)}, 
+
+{'id': 2, 'book_id_id': 3, 'user_id_id': 1, 'content': 'book about a clumsy maid', 'rating': 5, 'created_at': datetime.datetime(2020, 10, 5, 19, 34, 13, 721765, tzinfo=<UTC>), 'updated_at': datetime.datetime(2020, 10, 5, 19, 34, 13, 721765, tzinfo=<UTC>)}, 
+
+{'id': 3, 'book_id_id': 4, 'user_id_id': 1, 'content': 'Book about a wizard that became a movie series as well', 'rating': 4, 'created_at': datetime.datetime(2020, 10, 5, 19, 35, 24, 410190, tzinfo=<UTC>), 'updated_at': datetime.datetime(2020, 10, 5, 19, 35, 24, 410190, tzinfo=<UTC>)}, 
+
+
+{'id': 4, 'book_id_id': 5, 'user_id_id': 1, 'content': 'Second Harry Potter book', 'rating': 3, 'created_at': datetime.datetime(2020, 10, 5, 19, 35, 54, 602613, tzinfo=<UTC>), 'updated_at': datetime.datetime(2020, 10, 5, 19, 35, 54, 602613, tzinfo=<UTC>)}, {'id': 5, 'book_id_id': 6, 'user_id_id': 1, 'content': "Classic book I haven't read yet because I'm a dog", 'rating': 1, 'created_at': datetime.datetime(2020, 10, 5, 21, 17, 7, 957785, tzinfo=<UTC>), 'updated_at': datetime.datetime(2020, 10, 5, 21, 17, 7, 957785, tzinfo=<UTC>)}]>
+>>>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- static css -->
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
+    <!-- google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Link to jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body style="background-color: #ced;">
+
+    <!-- ================= NAV ======================== -->
+    <nav id="navbar" class="navbar navbar-dark" style="background-color:black;">
+        <span class="navbar-text justify-content-left" style="color: white;">
+            <i class="fas fa-portrait"></i>
+            {{ request.session.user_alias }}
+        </span>
+
+        <ul class="nav justify-content-end">
+
+            <!-- ======== ADD BOOKS AND REVIEW ROUTE ========= -->
+            <li class="nav-item">
+
+                <a class="nav-link" href="/addPage/" style="color: white;">Add Book & Review <i
+                        class="fas fa-pencil-alt"></i></a>
+            </li>
+
+            <!-- ============== LOGOUT ROUTE ================ -->
+            <li class="nav-item">
+                <a class="nav-link" href="/logout/" style="color: white;">Log out <i class="fas fa-door-open"></i></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- =================================================================================================== -->
+    <div style="height: 30px; background-color:white; margin-bottom: 30px;">
+
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <!-- ------------------ Left column -------------------- -->
+            <div class="col-7">
+                <h1 style="margin-bottom: 20px;">Recent Reviews:</h1>
+
+                <!-- LOOP FOR LAST 3 REVIEWS -->
+
+                {% for review in results %}
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+
+                                <!-- book title as link -->
+                                <a href="/get_book_review/{{ review.book_id.id }}/">
+                                    <h4>{{ review.book_id.title }}</h4>
+                                </a>
+                            </div>
+
+                            <div class="card-body">
+
+                                <!-- rating -->
+                                <p>Rating: {{ review.rating }}</p>
+
+                                <!-- user alias as a link  -->
+                                <a href="/getUser/{{ review.user_id }}/">{{ review.alias }}</a>
+
+                                <!-- review content -->
+                                {{ review.content }}
+                                <div class="card-footer text-muted">
+
+                                    <!-- comment's timestamp  -->
+                                    posted @ {{ review.updated_at }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- ------------------ Right column -------------------- -->
+            <div class="col" style="text-align: center;">
+                <h3 style="margin-bottom: 30px;">Other Books with Reviews:</h3>
+
+                <div class="row">
+                    <div class="col">
+
+                        <div class="card" style="background-color: #fff; height: 200px; overflow: auto;">
+                            <ul class="list-group list-group-flush">
+
+                                <!-- LOOP FOR ALL BOOKS IN DATABASE  -->
+                                {% for book in book_results %}
+                                <li class="list-group-item"> <a class="text-uppercase" style="color: #897;"
+                                        href="/get_book_review/{{ book.id }}/">
+
+                                        {{ book.title }}
+                                    </a></li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- BOOTSTRAP'S: Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

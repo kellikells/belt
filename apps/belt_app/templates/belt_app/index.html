@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login and Registration</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- static css -->
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
+    <!-- Link to jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body style="background-color: #acb;">
+    <div class="container">
+        <!-- <div class="jumbotron jumbotron-fluid" style="background-color: #acb;"> -->
+        <div class="container" style="border-bottom: dotted white; padding: 30px 0 10px 0; margin-bottom: 40px;">
+            <h1 class="display-4" style="text-align: center; font-weight: bold; color:white;">Book Reviews!</h1>
+        </div>
+        <!-- </div> -->
+
+        <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
+
+        <div class="container" style="min-height:100%; width:80%">
+
+            {% if messages %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <h4 class="alert-heading">SUCCESS!</h4>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                {{ messages }}
+            </div>
+            {% endif %}
+
+            {% block body %}{% endblock %}
+        </div>
+        <div>
+            {% if errors %}
+            {% for msg in errors %}
+            <p class="error">{{ msg }}</p>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+        <div class="row">
+
+            <!-- =============== REGISTRATION COLUMN ================== -->
+            <div class="col" style="margin-right:15px; padding: 30px;background-color: #ded;">
+                <h2 style="margin-bottom:15px;">Register here!</h2>
+
+                <form action="/register/" method="post">
+                    {% csrf_token %}
+
+                    <!-- name: letters only, at least 2 characters -->
+                    <div class="form-group">
+                        <label class="labels" for="name">Name:</label>
+
+
+                        <input name="name" type="text" class="form-control" id="name">
+                    </div>
+
+                    <!-- alias: not blank -->
+                    <div class="form-group">
+                        <label class="labels" for="alias">Alias:</label>
+
+
+                        <input name="alias" type="text" class="form-control" id="alias">
+                    </div>
+
+                    <!-- email: email format, not already in database -->
+                    <div class="form-group">
+                        <label class="labels" for="email">Email:</label>
+
+
+                        <input name="email" type="text" class="form-control" id="email">
+                    </div>
+
+                    <!-- password: at least 8 characters -->
+                    <div class="form-group">
+                        <label class="labels" for="password">Password:</label>
+                        <input name="password" type="password" class="form-control" id="password">
+                        <small id="passwordHelp" class="form-text text-muted">*Password must be at least 8
+                            characters</small>
+                    </div>
+
+                    <!-- confirm password: matches password -->
+                    <div class="form-group">
+                        <label class="labels" for="confirm_password">Confirm PW:</label>
+                        <input name="confirm_password" type="password" class="form-control" id="confirm_password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success" id="bttnSubmit">Register!</button>
+                </form>
+            </div>
+
+            <!-- =============== LOGIN COLUMN ================ -->
+            <div class="col" style="margin-left:15px; padding: 30px; background-color: #ded;">
+                <h2>Login here!</h2>
+
+                <form action="/login/" method="post">
+                    {% csrf_token %}
+                    <!-- email -->
+                    <div class="form-group">
+                        <label class="labels" for="email">Email:</label>
+                        <input name="email" type="text" class="form-control" id="email">
+                    </div>
+                    <!-- password -->
+                    <div class="form-group">
+                        <label class="labels" for="password">Password:</label>
+                        <input name="password" type="password" class="form-control" id="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success" id="bttnSubmit">Login!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP'S: Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
